@@ -2,6 +2,7 @@
 import { useSearchParams, useParams } from "next/navigation";
 import { products } from "@/products";
 import Link from "next/link";
+import ProductDisplay from "@/components/ProductDisplay";
 export default function Product() {
   const params = useParams();
   const { product: link } = params;
@@ -28,108 +29,75 @@ export default function Product() {
           {product.descripcion && (
             <p className="whitespace-pre-line">{product.descripcion}</p>
           )}
-          {/* {product.accion&&} */}
           {product.accion && (
-            <div className="w-full border border-black ">
-              <div className="flex w-full justify-between px-2 border border-black">
-                <p>Acción</p>
-                <p>Icon</p>
-              </div>
-              <div className="p-2">{product.accion}</div>
-            </div>
+            <ProductDisplay name={"Acción"} data={product.accion} />
           )}
           {product.mecanismoDeAccion && (
-            <div className="w-full border border-black ">
-              <div className="flex w-full justify-between px-2 border border-black">
-                <p>Mecanismo de Acción</p>
-                <p>Icon</p>
-              </div>
-              <div className="p-2">{product.mecanismoDeAccion}</div>
-            </div>
+            <ProductDisplay
+              name={"Mecanismo de Acción"}
+              data={product.mecanismoDeAccion}
+            />
           )}
           {!!product.malezas.length && (
-            <div className="w-full border border-black ">
-              <div className="flex w-full justify-between px-2 border border-black">
-                <p>Malezas</p>
-                <p>Icon</p>
-              </div>
-              <div className="p-2 flex flex-col gap-2">
-                {product.malezas.map((maleza, i) => (
-                  <div key={i}>
-                    {maleza.nombre ? (
-                      <p>
-                        {maleza.nombre}: {maleza.datos}
-                      </p>
-                    ) : (
-                      <p>{maleza.datos}</p>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
+            <ProductDisplay name={"Malezas"} data={product.malezas} />
           )}
           {product.enfermedades && (
-            <div className="w-full border border-black ">
-              <div className="flex w-full justify-between px-2 border border-black">
-                <p>Enfermedades</p>
-                <p>Icon</p>
-              </div>
-              <div className="p-2">{product.enfermedades}</div>
-            </div>
+            <ProductDisplay name={"Enfermedades"} data={product.enfermedades} />
           )}
           {product.plagas && (
-            <div className="w-full border border-black ">
-              <div className="flex w-full justify-between px-2 border border-black">
-                <p>Plagas</p>
-                <p>Icon</p>
-              </div>
-              <div className="p-2">{product.plagas}</div>
-            </div>
+            <ProductDisplay name={"Plagas"} data={product.plagas} />
           )}
           {!!product.cultivos.length && (
-            <div className="w-full border border-black ">
-              <div className="flex w-full justify-between px-2 border border-black">
-                <p>Cultivos</p>
-                <p>Icon</p>
-              </div>
-              <div className="p-2">{product.cultivos.join(", ")}</div>
-            </div>
+            <ProductDisplay name={"Cultivos"} data={product.cultivos} />
           )}
           {!!product.dosis.length && (
-            <div className="w-full border border-black ">
-              <div className="flex w-full justify-between px-2 border border-black">
-                <p>Dosis</p>
-                <p>Icon</p>
-              </div>
-              <div className="p-2 flex flex-col gap-2">
-                {product.dosis.map((dosis, i) => (
-                  <div key={i}>
-                    {dosis.nombre ? (
-                      <p>
-                        {dosis.nombre}: {dosis.datos}
-                      </p>
-                    ) : (
-                      <p>{dosis.datos}</p>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
+            <ProductDisplay name={"Dosis"} data={product.dosis} />
           )}
           {product.recomendacionesDeUso && (
-            <div className="w-full border border-black ">
-              <div className="flex w-full justify-between px-2 border border-black">
-                <p>Recomendaciones de Uso</p>
-                <p>Icon</p>
-              </div>
-              <div className="p-2 whitespace-pre-line">
-                {product.recomendacionesDeUso}
-              </div>
-            </div>
+            <ProductDisplay
+              name={"Recomendaciones de Uso"}
+              data={product.recomendacionesDeUso}
+            />
+          )}
+          {product.bandaToxicologica && (
+            <ProductDisplay
+              name={"Banda Toxicológica"}
+              data={product.bandaToxicologica}
+            />
           )}
         </div>
         <div className=" w-1/3 px-20">
           <img src={`/products/${product.imagen}`} />
+          {product.descargas?.marbete && (
+            <div>
+              <a
+                href={`/products/${product.descargas.marbete}`}
+                target="_blank"
+              >
+                <b>Descargar </b>Marbete
+              </a>
+            </div>
+          )}
+          {product.descargas?.hojaDeDatosDeSeguridad && (
+            <div>
+              <a
+                href={`/products/${product.descargas.hojaDeDatosDeSeguridad}`}
+                target="_blank"
+              >
+                <b>Descargar </b>Hoja de Datos de Seguridad (MSDS)
+              </a>
+            </div>
+          )}
+          {product.descargas?.flyerComercial && (
+            <div>
+              <a
+                href={`/products/${product.descargas.flyerComercial}`}
+                target="_blank"
+              >
+                <b>Descargar </b>Flyer Comercial
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </>
